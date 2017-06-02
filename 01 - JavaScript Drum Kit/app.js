@@ -1,4 +1,5 @@
-var keys, elem, dataKey;
+var keys, elem, dataKey, audio;
+
 keys = document.getElementsByClassName('key');
 
 for (var i = 0; i < keys.length; i++ ){
@@ -6,6 +7,7 @@ for (var i = 0; i < keys.length; i++ ){
   dataKey = parseInt(elem.getAttribute('data-key'));
   elem.addEventListener('mousedown', function() {
     this.classList.add('playing');
+    //audio = document.querySelector("audio[data-key='${e.keyCode}']");
   });
   elem.addEventListener('mouseup', function() {
     this.classList.remove('playing');
@@ -19,6 +21,8 @@ window.addEventListener('keydown', function (e) {
     dataKey = parseInt(elem.getAttribute('data-key'));
     if(e.keyCode == dataKey){
       elem.classList.add('playing');
+      audio = document.querySelector('audio[data-key=' + "'" + dataKey + "'" + ']');
+      console.log(audio);
       }
     }
 });
