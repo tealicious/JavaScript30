@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+  <title>Ajax</title>
+</head>
+<body>
+  <div id='container'></div>
+  <script>
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = checkResponse;
+  // 0
+  // 1 loading
+  // 2 loaded
+  // 3 interacting
+  // 4 complete
+
+  httpRequest.open('GET', 'requestPage.html', true);
+  httpRequest.send();
+
+  function checkResponse() {
+    console.log(httpRequest.readyState);
+    console.log(httpRequest.status);
+    if(httpRequest.readyState === httpRequest.DONE){
+      console.log(httpRequest, httpRequest.status);
+      console.log(httpRequest.response);
+    } else {
+      console.log('not ready yet :(');
+    }
+  }
+
+  </script>
+</body>
+</html>

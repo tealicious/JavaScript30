@@ -75,7 +75,11 @@
       var secondAge = b.passed - b.year;
       a.age = firstAge;
       b.age = secondAge;
-      firstAge > secondAge ? 1 : - 1;
+      if (firstAge > secondAge){
+        return 1;
+      } else {
+        return -1;
+      }
     });
     console.table(byAge);
 
