@@ -39,7 +39,7 @@
     <br />
     <hr />
     <br />
-    <button id='myJsonButton'>myJson Post!</button>
+    <button id='myJsonButton'>myJson Get!</button>
     <br />
     <br />
     <div id='myJsonGet'></div>
@@ -66,7 +66,7 @@
       var httpRequest = new XMLHttpRequest();
       //create the request
       httpRequest.onreadystatechange = function(){
-        // 'this' references 'httpRequest'
+        // create a listener for the different stats an httpRquest goes through after being made
         //readyStates:
         // 0
         // 1 loading
@@ -74,6 +74,7 @@
         // 3 interacting
         // 4 complete
         if(this.readyState === this.DONE){
+          // 'this' references 'httpRequest'
           // this.DONE == (httpRequest.readyState == 4);
           console.log(this.status, 'praise the sun!', this);
           console.log(this.readyState);
@@ -87,7 +88,9 @@
       }
 
       httpRequest.open('GET', 'requestPage.html', true);
+      //direct the request and choose what type (GET/POST)
       httpRequest.send();
+      //make the request
     } else {
       document.getElementById('solaire').innerHTML = '';
     }
@@ -106,6 +109,7 @@
       var httpRequest = new XMLHttpRequest();
       //create the request
       httpRequest.onreadystatechange = function(){
+        // create a listener for the different stats an httpRquest goes through after being made
         // the php file is formatted to receive the user input and pass it into a string RESEMBLING an object
         if(this.readyState === this.DONE){
           // 'this' references 'httpRequest'
@@ -120,8 +124,11 @@
         }
       }
       httpRequest.open('POST', 'test.php', true);
+      //direct the request and choose what type (GET/POST)
       httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      // necessary to send header info to a php file
       httpRequest.send(myPost);
+      //make the request and pass in the myPost variable which has been encoded for the php file to interpret
     } else {
       document.getElementById('solairePost').innerHTML = '';
     }
@@ -141,7 +148,9 @@
         }
       }
       httpRequest.open('GET', 'https://api.myjson.com/bins/ainwd', true);
+      //direct the request and choose what type (GET/POST)
       httpRequest.send();
+      //make the request
     } else {
       document.getElementById('myJsonGet').innerHTML = '';
     }
