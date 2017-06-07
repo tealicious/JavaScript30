@@ -23,11 +23,15 @@
 <body>
   <div id='container'>
     <button id='button'>Get!</button>
+    <br />
+    <br />
     <div id='solaire'></div>
     <br />
     <hr />
     <br />
     <button id='buttonPost'>Post!</button>
+    <br />
+    <br />
     <div id='solairePost'></div>
     <br />
     <input type='text' id='ftext'/ value="\[T]/">
@@ -35,17 +39,20 @@
   </div>
 
   <script>
-  document.getElementById('button').onclick = showData;
-  document.getElementById('buttonPost').onclick = postData;
 
   var toggleGet = 0;
   var togglePost = 0;
 
   //GET REQUEST
   function showData() {
+    document.getElementById('button').onclick = showData;
+    document.getElementById('buttonPost').onclick = postData;
+    //get the values from user inputs
     toggleGet += 1;
     if((toggleGet % 2) != 0) {
+      //conditionally hide/show the post with a modelo toggle
       var httpRequest = new XMLHttpRequest();
+      //create the request
       httpRequest.onreadystatechange = function(){
         // 'this' references 'httpRequest'
         //readyStates:
@@ -55,9 +62,12 @@
         // 3 interacting
         // 4 complete
         if(this.readyState === this.DONE){
+          // this.DONE == (httpRequest.readyState == 4);
           console.log(this.status, 'praise the sun!', this);
           console.log(this.readyState);
+          //console logging some values from the returned httpRequest object
           document.getElementById('solaire').innerHTML = this.response;
+          //pass the response into the DOM
         } else {
           console.log(this.status, 'not ready yet :(', this);
           console.log(this.readyState);
@@ -75,17 +85,18 @@
   function postData() {
     var myData  = document.getElementById('ftext').value;
     var nameKey = document.getElementById('dtext').value;
-    //get the value from a use input
+    //get the values from user inputs
     var myPost = "nameKey="+encodeURIComponent(nameKey)+"&myData="+encodeURIComponent(myData);
     //encode the values in a format that a php file can decipher
     togglePost += 1;
-    //conditionally hide/show the post with a modelo toggle
     if((togglePost % 2) != 0) {
+      //conditionally hide/show the post with a modelo toggle
       var httpRequest = new XMLHttpRequest();
       //create the request
       httpRequest.onreadystatechange = function(){
         // the php file is formatted to receive the user input and pass it into a string RESEMBLING an object
         if(this.readyState === this.DONE){
+          // 'this' references 'httpRequest'
           //when the request is ready (4)
           console.log(this.responseText);
           var response = JSON.parse(this.responseText);
