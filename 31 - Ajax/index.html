@@ -8,33 +8,99 @@
     flex-flow:column wrap;
     justify-content:center;
     align-items:center;
+    text-align:center;
+  }
+  hr {
+    width:100%;
+  }
+  input[type] {
+    margin-bottom:3rem;
+    border:1px solid darkgray;
   }
   </style>
 </head>
 
 <body>
-  <div id='container'></div>
+  <div id='container'>
+    <button id='button'>Get!</button>
+    <div id='solaire'></div>
+    <br />
+    <hr />
+    <br />
+    <button id='buttonPost'>Post!</button>
+    <div id='solairePost'></div>
+    <br />
+    <input type='text' id='ftext'/ value="\[T]/">
+    <input type='text' id='dtext'/ value="Praise the Sun!">
+  </div>
+
   <script>
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.onreadystatechange = checkResponse;
-  // 0
-  // 1 loading
-  // 2 loaded
-  // 3 interacting
-  // 4 complete
+  document.getElementById('button').onclick = showData;
+  document.getElementById('buttonPost').onclick = postData;
 
-  httpRequest.open('GET', 'requestPage.html', true);
-  httpRequest.send();
+  var toggleGet = 0;
+  var togglePost = 0;
 
-  function checkResponse() {
-    if(httpRequest.readyState === httpRequest.DONE){
-      console.log(httpRequest, httpRequest.status);
-      console.log(httpRequest.responseText);
-      document.getElementById('container').innerHTML = httpRequest.responseText;
+  //GET REQUEST
+  function showData() {
+    toggleGet += 1;
+    if((toggleGet % 2) != 0) {
+      var httpRequest = new XMLHttpRequest();
+      httpRequest.onreadystatechange = function(){
+        // 'this' references 'httpRequest'
+        //readyStates:
+        // 0
+        // 1 loading
+        // 2 loaded
+        // 3 interacting
+        // 4 complete
+        if(this.readyState === this.DONE){
+          console.log(this.status, 'praise the sun!', this);
+          console.log(this.readyState);
+          document.getElementById('solaire').innerHTML = this.response;
+        } else {
+          console.log(this.status, 'not ready yet :(', this);
+          console.log(this.readyState);
+        }
+      }
+
+      httpRequest.open('GET', 'requestPage.html', true);
+      httpRequest.send();
     } else {
-      console.log(httpRequest.readyState);
-      console.log(httpRequest.status);
-      console.log('not ready yet :(');
+      document.getElementById('solaire').innerHTML = '';
+    }
+  }
+
+  //POST REQUEST
+  function postData() {
+    var myData  = document.getElementById('ftext').value;
+    var nameKey = document.getElementById('dtext').value;
+    //get the value from a use input
+    var myPost = "nameKey="+encodeURIComponent(nameKey)+"&myData="+encodeURIComponent(myData);
+    //encode the values in a format that a php file can decipher
+    togglePost += 1;
+    //conditionally hide/show the post with a modelo toggle
+    if((togglePost % 2) != 0) {
+      var httpRequest = new XMLHttpRequest();
+      //create the request
+      httpRequest.onreadystatechange = function(){
+        // the php file is formatted to receive the user input and pass it into a string RESEMBLING an object
+        if(this.readyState === this.DONE){
+          //when the request is ready (4)
+          console.log(this.responseText);
+          var response = JSON.parse(this.responseText);
+          //JSON.parse takes the string and creates an object now accessible with dot notation
+          console.log(response);
+          document.getElementById('solairePost').innerHTML = "<h1>" + response.data + "</h1>" +
+          "<p>" + response.name + "</p>";
+          // DOM manipulation lets us pass the newly formed object into a specified location
+        }
+      }
+      httpRequest.open('POST', 'test.php', true);
+      httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      httpRequest.send(myPost);
+    } else {
+      document.getElementById('solairePost').innerHTML = '';
     }
   }
 
