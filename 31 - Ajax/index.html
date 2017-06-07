@@ -37,8 +37,12 @@
     <input type='text' id='ftext'/ value="\[T]/">
     <input type='text' id='dtext'/ value="Praise the Sun!"><br />
     <br />
+    <hr />
     <br />
-    <div id='myJsonPost'></div>
+    <button id='myJsonButton'>myJson Post!</button>
+    <br />
+    <br />
+    <div id='myJsonGet'></div>
   </div>
 
   <script>
@@ -46,6 +50,7 @@
   //go here to finish
   document.getElementById('button').onclick = showData;
   document.getElementById('buttonPost').onclick = postData;
+  document.getElementById('myJsonButton').onclick = myJsonData;
   // bind future ajax requests to button click events on the DOM
 
   var toggleGet = 0;
@@ -122,8 +127,24 @@
     }
   }
 
-  function myJsonPost() {
-
+  function myJsonData() {
+    togglePost += 1;
+    if((togglePost % 2) != 0) {
+      var httpRequest = new XMLHttpRequest();
+      httpRequest.onreadystatechange = function(){
+        if(this.readyState === this.DONE){
+          console.log(this.responseText);
+          var response = JSON.parse(this.responseText);
+          console.log(response);
+          document.getElementById('myJsonGet').innerHTML = "<h1>" + response.data + "</h1>" +
+          "<p>" + response.name + "</p>";
+        }
+      }
+      httpRequest.open('GET', 'https://api.myjson.com/bins/ainwd', true);
+      httpRequest.send();
+    } else {
+      document.getElementById('myJsonGet').innerHTML = '';
+    }
   }
 
   </script>
