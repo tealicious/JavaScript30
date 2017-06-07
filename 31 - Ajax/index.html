@@ -39,14 +39,16 @@
   </div>
 
   <script>
+  document.getElementById('button').onclick = showData;
+  document.getElementById('buttonPost').onclick = postData;
+  // bind future ajax requests to button click events on the DOM
 
   var toggleGet = 0;
   var togglePost = 0;
+  // toggle values for clearing and resubmitting ajax requests
 
   //GET REQUEST
   function showData() {
-    document.getElementById('button').onclick = showData;
-    document.getElementById('buttonPost').onclick = postData;
     //get the values from user inputs
     toggleGet += 1;
     if((toggleGet % 2) != 0) {
