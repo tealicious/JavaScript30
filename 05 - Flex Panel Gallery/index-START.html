@@ -131,14 +131,16 @@
   </div>
 
   <script>
-  var panels = document.querySelectorAll('.panel');
+  var panels = Array.from(document.querySelectorAll('.panel'));
+  var panel = document.querySelectorAll('.panels');
+
   function toggleOpen() {
     this.classList.toggle('open');
   }
 
   function toggleActive(e){
-    console.log(e.propertyName);
     if(e.propertyName.includes('flex')){
+      console.log(e, 'propertyName: ' + '"' + e.propertyName + '"');
       this.classList.toggle('open-active');
     }
   }
