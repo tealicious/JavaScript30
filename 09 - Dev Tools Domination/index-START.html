@@ -9,10 +9,10 @@
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
   <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'Hugo', age: 8 }];
+    const p = document.querySelector('p');
 
     function makeGreen() {
-      const p = document.querySelector('p');
       p.style.color = '#BADA55';
       p.style.fontSize = '50px';
     }
@@ -22,24 +22,52 @@
     // Interpolated
 
     // Styled
-
+    console.log('%c I am some great text', 'font-size:50px; color:red; background:white;')
     // warning!
+    console.warn('oooh no!');
 
     // Error :|
+    console.error('shit!');
 
     // Info
+    console.info('crocodiles eat 3-4 people per year');
 
-    // Testing
+    // Testing (only throw error if assertion is false)
+    console.assert(1 == 2, 'that is wrong!')
 
     // clearing
+    console.clear()
 
     // Viewing DOM Elements
+    console.dir(p);
+
+    console.clear();
 
     // Grouping together
+    dogs.forEach(dog => {
+      //console.group(`${dog.name}`);
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}, he is ${dog.age * 7} dog years old.`);
+      console.groupEnd(`${dog.name}`);
+    });
 
     // counting
 
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/webos')
+    .then(data => data.json())
+    .then(data => {
+      console.timeEnd('fetching data');
+      console.log(data);
+    });
+
+    console.table(dogs);
 
   </script>
 </body>
