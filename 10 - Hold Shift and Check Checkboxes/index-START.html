@@ -99,6 +99,59 @@
   </div>
 
 <script>
+var checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
+var lastChecked;
+
+function handleCheck(e){
+  console.log(e.type, 'shift key down? : ' + e.shiftKey, this, lastChecked, 'checked : ' + this.checked);
+  // 'e'(event) represents the click event that this function has been bound to, if this were ound to another event type e(event) would represent taht event
+  // 'this' represents the dom element that the click event has happened to (in this caase, one of the checkboxes stored in the checkboxes variable)
+
+  var inBetween = false;
+  //check to see if the shift key is being held down during click event
+  //AND check whether the checkbox is being checked on or off
+
+  if(e.shiftKey && this.checked) {
+  // go ahead and do what we please
+  // loop over every check
+
+  checkboxes.forEach(checkbox => {
+      console.log(checkbox);
+      if(checkbox === this || checkbox === lastChecked){
+        // loop through all the checkboxes on the click event and use an if statement to check to see if they are between the last two selected checkboxes so that we can reassign their checked property and leave the other checkboxes outside of the range alone
+        inBetween = !inBetween; //set inBetween to true for each checkbox in the range so we can change them based on this condition
+        console.log('this is the range to be changed');
+      }
+      if(inBetween) {
+        checkbox.checked = true;
+      }
+    });
+
+  }
+
+  lastChecked = this;
+  //store this as the last chcekbox interacted with
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 </body>
 </html>
