@@ -12,9 +12,7 @@
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         document.getElementById('ajax').innerHTML = xhr.responseText;
-      } else if (xhr.status === 404) {
-        alert(xhr.statusText);
-      } else if (xhr.status === 500) {
+      } else  {
         alert(xhr.statusText);
       }
     }
