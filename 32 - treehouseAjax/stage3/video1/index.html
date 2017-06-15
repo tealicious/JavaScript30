@@ -5,8 +5,18 @@
   <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/main.css">
   <title>AJAX with JavaScript</title>
+  <script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
   <script>
-
+  function sendAJAX(){
+    $('#ajax').load('sidebar.html');
+    $.get('sidebar.html', function(response){
+      $('#ajax').html(response);
+    })
+    $('#load').hide();
+  }
   </script>
 </head>
 <body>

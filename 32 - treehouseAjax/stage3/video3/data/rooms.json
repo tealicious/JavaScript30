@@ -1,0 +1,26 @@
+[
+  {
+   "number": "101",
+   "open": false
+  },
+  {
+   "number": "102",
+   "open": false
+  },
+  {
+   "number": "103",
+   "open": true
+  },
+  {
+   "number": "104",
+   "open": true
+  },
+  {
+   "number": "105",
+   "open": true
+  },
+  {
+   "number": "106",
+   "open": false
+  }
+]
